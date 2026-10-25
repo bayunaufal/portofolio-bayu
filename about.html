@@ -16,6 +16,26 @@
       --biru-muda: #e6f0fa;
       --hitam: #000000;
       --putih: #ffffff;
+      --dot-light-1: #e6f0fa;
+      --border-warna: #1C4D8D;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --biru: #38bdf8;
+        --biru-gelap: #0f172a;
+        --biru-muda: #1e293b;
+        --hitam: #f8fafc;
+        --putih: #090d16;
+        --dot-light-1: #1e293b;
+        --border-warna: #1e293b;
+      }
+      body {
+        color: #f8fafc !important;
+      }
+      .about-text p {
+        color: #94a3b8 !important;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,25 +44,36 @@
       font-family: "Chakra Petch", sans-serif;
       background: var(--putih);
       color: var(--hitam);
-      border: 12px solid var(--biru);
+      border: 12px solid var(--border-warna);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
     .about-page {
       position: relative;
-      min-height: calc(100vh - 24px); /* Memperbaiki typo kalkulasi minus */
+      min-height: calc(100vh - 24px);
       padding: 0 90px 60px 90px;
     }
 
-    /* ---------- NAVBAR ---------- */
     header {
       position: relative;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 50px;
+      padding-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .about-container {
+      max-width: 1100px;
+      margin: 20px auto 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 3;
     }
 
     .logo {
@@ -53,24 +84,8 @@
       color: var(--hitam);
       z-index: 1;
     }
-    .logo::before {
-      content: "";
-      position: absolute;
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      background: var(--biru-gelap);
-      top: -28px; left: -8px;
-      z-index: -1;
-    }
-    .logo::after {
-      content: "";
-      position: absolute;
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--biru);
-      opacity: .85;
-      top: -22px; left: -6px;
-      z-index: -1;
+    .logo::before, .logo::after {
+      display: none !important;
     }
 
     nav { display: flex; align-items: center; gap: 36px; }
@@ -99,7 +114,6 @@
     .btn:hover { transform: translateY(-3px); background: #153c70; }
     .btn-contact { padding: 10px 40px; font-size: 1.05rem; }
 
-    /* ---------- ABOUT CONTENT ---------- */
     .about-container {
       max-width: 1100px;
       margin: 60px auto 0 auto;
@@ -154,7 +168,6 @@
       margin-bottom: 20px;
     }
 
-    /* ---------- SKILLS SECTION ---------- */
     .skills-grid {
       display: flex;
       gap: 16px;
@@ -172,14 +185,9 @@
       border: 1px solid rgba(28, 77, 141, 0.2);
     }
 
-    /* ---------- LINGKARAN DEKORASI ---------- */
     .dot { position: absolute; border-radius: 50%; z-index: 1; }
-    .dot-1 { width: 60px; height: 60px; background: var(--biru-muda); top: 120px; right: 100px; }
-    .dot-2 { width: 120px; height: 120px; background: var(--biru-muda); bottom: 40px; right: 60px; }
-
-    /* ========================================= */
-    /* RESPONSIF CSS (DIPERBAIKI UNTUK HP & PC) */
-    /* ========================================= */
+    .dot-1 { width: 60px; height: 60px; background: var(--dot-light-1); top: 120px; right: 100px; }
+    .dot-2 { width: 120px; height: 120px; background: var(--dot-light-1); bottom: 40px; right: 60px; }
 
     @media (max-width: 1024px) {
       .about-page { padding: 0 40px 40px 40px; }
@@ -191,17 +199,17 @@
     }
 
     @media (max-width: 768px) {
-      body { border-width: 6px; } /* Border mengecil di HP */
+      body { border-width: 6px; }
       .about-page { padding: 0 20px 30px 20px; }
       
       header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; } /* Menu navigasi tetap ada & rapi di HP */
+      nav { display: flex; gap: 20px; font-size: 0.9rem; }
       
       .about-text h1 { font-size: 2.3rem; }
       .about-text h1 span { font-size: 2.6rem; display: inline-block; }
       .about-text p { font-size: 0.95rem; }
       
-      .dot-1, .dot-2 { display: none; } /* Menyembunyikan dekorasi titik agar tidak mengganggu di layar kecil */
+      .dot-1, .dot-2 { display: none; }
     }
 
     @media (max-width: 480px) {
@@ -218,11 +226,9 @@
 <body>
   <div class="about-page">
 
-    <!-- Dekorasi Lingkaran -->
     <span class="dot dot-1"></span>
     <span class="dot dot-2"></span>
 
-    <!-- NAVBAR -->
     <header>
       <a href="index.html" class="logo">Bayu Naufal</a>
       <nav>
@@ -233,7 +239,6 @@
       <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
     </header>
 
-    <!-- ABOUT CONTENT -->
     <main class="about-container">
       <section class="about-img-box">
         <div class="lingkaran-besar"></div>

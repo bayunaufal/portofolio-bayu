@@ -16,6 +16,34 @@
       --biru-muda: #e6f0fa;
       --hitam: #000000;
       --putih: #ffffff;
+      --dot-light-1: #e6f0fa;
+      --dot-light-2: #d0e1f9;
+      --border-warna: #1C4D8D;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --biru: #38bdf8;
+        --biru-gelap: #0f172a;
+        --biru-muda: #1e293b;
+        --hitam: #f8fafc;
+        --putih: #090d16;
+        --dot-light-1: #1e293b;
+        --dot-light-2: #1e293b;
+        --border-warna: #1e293b;
+      }
+      body {
+        color: #f8fafc !important;
+      }
+      .hero-text p, .find-me {
+        color: #94a3b8 !important;
+      }
+      .sosmed a {
+        color: #f8fafc !important;
+      }
+      .sosmed a:hover {
+        color: var(--biru) !important;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,14 +52,14 @@
       font-family: "Chakra Petch", sans-serif;
       background: var(--putih);
       color: var(--hitam);
-      border: 12px solid var(--biru);
+      border: 12px solid var(--border-warna);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
     .hero-page {
       position: relative;
-      min-height: calc(100vh - 24px); /* Memperbaiki typo perhitungan minus */
+      min-height: calc(100vh - 24px);
       overflow: hidden;
       padding: 0 90px;
     }
@@ -42,35 +70,38 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 50px;
+      padding-top: 40px;
+      margin-bottom: 20px;
     }
 
-    .logo {
+   .logo {
       position: relative;
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 700;
       text-decoration: none;
       color: var(--hitam);
       z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
     }
-    .logo::before {
-      content: "";
-      position: absolute;
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      background: var(--biru-gelap);
-      top: -28px; left: -8px;
-      z-index: -1;
-    }
-    .logo::after {
-      content: "";
-      position: absolute;
-      width: 80px; height: 80px;
-      border-radius: 50%;
+
+    .logo span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 75px;
+      height: 75px;
       background: var(--biru);
-      opacity: .85;
-      top: -22px; left: -6px;
-      z-index: -1;
+      color: #ffffff !important;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .logo::before, .logo::after {
+      display: none !important;
     }
 
     nav { display: flex; align-items: center; gap: 36px; }
@@ -186,14 +217,10 @@
     }
 
     .dot { position: absolute; border-radius: 50%; z-index: 1; }
-    .dot-1 { width: 55px;  height: 55px;  background: var(--biru-muda);  top: 90px;  right: 420px; z-index: 6; }
-    .dot-2 { width: 100px; height: 100px; background: var(--biru-muda);  top: 170px; right: 270px; }
-    .dot-3 { width: 200px; height: 200px; background: #d0e1f9;  top: 250px; right: 40px;  }
-    .dot-4 { width: 140px; height: 140px; background: #d0e1f9;  bottom: -20px; left: -20px; }
-
-    /* ========================================= */
-    /* RESPONSIVE CSS (DIPERBAIKI UNTUK HP & PC) */
-    /* ========================================= */
+    .dot-1 { width: 55px;  height: 55px;  background: var(--dot-light-1);  top: 90px;  right: 420px; z-index: 6; }
+    .dot-2 { width: 100px; height: 100px; background: var(--dot-light-1);  top: 170px; right: 270px; }
+    .dot-3 { width: 200px; height: 200px; background: var(--dot-light-2);  top: 250px; right: 40px;  }
+    .dot-4 { width: 140px; height: 140px; background: var(--dot-light-2);  bottom: -20px; left: -20px; }
 
     @media (max-width: 1024px) {
       .hero-page { padding: 0 40px; }
@@ -214,20 +241,18 @@
     }
 
     @media (max-width: 768px) {
-      body { border-width: 6px; } /* Border sedikit lebih tipis di HP agar tidak memakan layar */
+      body { border-width: 6px; } 
       .hero-page { padding: 0 20px; }
       
       header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; } /* Menu tetap tampil rapi di HP */
+      nav { display: flex; gap: 20px; font-size: 0.9rem; }
       
       .hero-text h2 { font-size: 2.2rem; }
       .hero-text h2 .nama { font-size: 2.6rem; display: inline-block; }
       .hero-text h1 { font-size: 2.2rem; }
       .hero-text p { font-size: 0.95rem; }
       
-      .dot-1, .dot-2, .dot-3, .dot-4 { display: none; } /* Menyembunyikan dekorasi titik agar bersih di layar kecil */
-    }
-
+      .dot-1, .dot-2, .dot-3, .dot-4 { display: none; } 
     @media (max-width: 480px) {
       .hero-text h2 { font-size: 1.8rem; }
       .hero-text h2 .nama { font-size: 2.2rem; }
@@ -249,7 +274,7 @@
     <span class="dot dot-4"></span>
 
     <header>
-      <a href="#" class="logo">Bayu Naufal</a>
+      <a href="index.html" class="logo">Bayu Naufal</a>
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>

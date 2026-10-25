@@ -16,6 +16,34 @@
       --biru-muda: #e6f0fa;
       --hitam: #000000;
       --putih: #ffffff;
+      --dot-light-1: #e6f0fa;
+      --border-warna: #1C4D8D;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --biru: #38bdf8;
+        --biru-gelap: #0f172a;
+        --biru-muda: #1e293b;
+        --hitam: #f8fafc;
+        --putih: #090d16;
+        --dot-light-1: #1e293b;
+        --border-warna: #1e293b;
+      }
+      body {
+        color: #f8fafc !important;
+      }
+      .timeline-item h3, .timeline-item .company, .card h3 {
+        color: #f8fafc !important;
+      }
+      .timeline-item .date {
+        color: #0f172a !important; 
+        font-weight: 700;
+      }
+      dialog {
+        background: var(--putih) !important;
+        color: var(--hitam) !important;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,25 +52,32 @@
       font-family: "Chakra Petch", sans-serif;
       background: var(--putih);
       color: var(--hitam);
-      border: 12px solid var(--biru);
+      border: 12px solid var(--border-warna);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
     .exp-page {
       position: relative;
-      min-height: calc(100vh - 24px); /* Memperbaiki typo kalkulasi minus */
+      min-height: calc(100vh - 24px);
       padding: 0 90px 60px 90px;
     }
 
-    /* ---------- NAVBAR ---------- */
     header {
       position: relative;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 50px;
+      padding-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .content-container {
+      max-width: 900px;
+      margin: 20px auto 0 auto;
+      position: relative;
+      z-index: 3;
     }
 
     .logo {
@@ -53,24 +88,8 @@
       color: var(--hitam);
       z-index: 1;
     }
-    .logo::before {
-      content: "";
-      position: absolute;
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      background: var(--biru-gelap);
-      top: -28px; left: -8px;
-      z-index: -1;
-    }
-    .logo::after {
-      content: "";
-      position: absolute;
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--biru);
-      opacity: .85;
-      top: -22px; left: -6px;
-      z-index: -1;
+    .logo::before, .logo::after {
+      display: none !important;
     }
 
     nav { display: flex; align-items: center; gap: 36px; }
@@ -99,7 +118,6 @@
     .btn:hover { transform: translateY(-3px); background: #153c70; }
     .btn-contact { padding: 10px 40px; font-size: 1.05rem; }
 
-    /* ---------- CONTENT CONTAINER ---------- */
     .content-container {
       max-width: 900px;
       margin: 50px auto 0 auto;
@@ -120,7 +138,6 @@
       color: var(--biru);
     }
 
-    /* ---------- VERTICAL LIST (TIMELINE) ---------- */
     .timeline-list {
       display: flex;
       flex-direction: column;
@@ -181,7 +198,6 @@
       height: fit-content;
     }
 
-    /* ---------- GRID CERTIFICATES ---------- */
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -229,7 +245,6 @@
       margin-top: 10px;
     }
 
-    /* ---------- HTML DIALOG (POP-UP TANPA JAVASCRIPT TERPISAH) ---------- */
     dialog {
       margin: auto;
       background: var(--putih);
@@ -270,14 +285,9 @@
       color: var(--biru);
     }
 
-    /* ---------- LINGKARAN DEKORASI ---------- */
     .dot { position: absolute; border-radius: 50%; z-index: 1; }
-    .dot-1 { width: 60px; height: 60px; background: var(--biru-muda); top: 80px; right: 50px; }
-    .dot-2 { width: 100px; height: 100px; background: var(--biru-muda); bottom: 20px; left: 40px; }
-
-    /* ========================================= */
-    /* RESPONSIF CSS (DIPERBAIKI UNTUK HP & PC) */
-    /* ========================================= */
+    .dot-1 { width: 60px; height: 60px; background: var(--dot-light-1); top: 80px; right: 50px; }
+    .dot-2 { width: 100px; height: 100px; background: var(--dot-light-1); bottom: 20px; left: 40px; }
 
     @media (max-width: 1024px) {
       .exp-page { padding: 0 40px 40px 40px; }
@@ -285,11 +295,11 @@
     }
 
     @media (max-width: 768px) {
-      body { border-width: 6px; } /* Border mengecil di HP */
+      body { border-width: 6px; }
       .exp-page { padding: 0 20px 30px 20px; }
       
       header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; } /* Navigasi tetap aktif & rapi di HP */
+      nav { display: flex; gap: 20px; font-size: 0.9rem; }
       
       .section-title { font-size: 1.6rem; }
       .timeline-header { flex-direction: column; align-items: flex-start; }
@@ -297,13 +307,13 @@
       .timeline-item h3 { font-size: 1.1rem; }
       .timeline-item .company { font-size: 0.95rem; }
       
-      .dot-1, .dot-2 { display: none; } /* Menyembunyikan dekorasi titik agar tidak berantakan di HP */
+      .dot-1, .dot-2 { display: none; }
     }
 
     @media (max-width: 480px) {
       .section-title { font-size: 1.4rem; gap: 10px; }
       nav { gap: 12px; font-size: 0.85rem; }
-      .grid-container { grid-template-columns: 1fr; } /* Kartu sertifikat disusun 1 kolom penuh di layar sangat kecil */
+      .grid-container { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -311,11 +321,9 @@
 <body>
   <div class="exp-page">
 
-    <!-- Dekorasi Lingkaran -->
     <span class="dot dot-1"></span>
     <span class="dot dot-2"></span>
 
-    <!-- NAVBAR -->
     <header>
       <a href="index.html" class="logo">Bayu Naufal</a>
       <nav>
@@ -326,10 +334,8 @@
       <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="content-container">
 
-      <!-- WORK EXPERIENCE SECTION -->
       <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Work <span>Experience</span></h2>
       <div class="timeline-list">
         
@@ -368,11 +374,9 @@
 
       </div>
 
-      <!-- CERTIFICATES SECTION -->
       <h2 class="section-title"><i class="fa-solid fa-award"></i> Certificates</h2>
       <div class="grid-container">
         
-        <!-- Sertifikat 1 -->
         <div class="card" onclick="document.getElementById('certModal1').showModal()">
           <i class="fa-solid fa-certificate fa-certificate-icon"></i>
           <h3>Industrial Work Practice Certificate</h3>
@@ -380,7 +384,6 @@
           <div class="view-hint"><i class="fa-solid fa-eye"></i> Click to view certificate</div>
         </div>
 
-        <!-- Sertifikat 2 -->
         <div class="card" onclick="document.getElementById('certModal2').showModal()">
           <i class="fa-solid fa-award fa-certificate-icon"></i>
           <h3>Certificate of Competency</h3>
@@ -388,7 +391,6 @@
           <div class="view-hint"><i class="fa-solid fa-eye"></i> Click to view certificate</div>
         </div>
 
-        <!-- Sertifikat 3 -->
         <div class="card" onclick="document.getElementById('certModal3').showModal()">
           <i class="fa-solid fa-laptop-file fa-certificate-icon"></i>
           <h3>Junior Administration ICT Training Certificate</h3>
@@ -402,7 +404,6 @@
 
   </div>
 
-  <!-- DIALOG MODAL 1 -->
   <dialog id="certModal1">
     <div class="modal-content">
       <button class="close-btn" onclick="document.getElementById('certModal1').close()">&times;</button>
