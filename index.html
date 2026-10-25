@@ -212,7 +212,7 @@
       display: flex;
       flex-direction: column;
       gap: 25px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .mobile-nav-links a {
@@ -347,17 +347,21 @@
       .btn-contact { display: none; }
       .menu-toggle { display: block; }
       
-      .hero-text h2 { font-size: 2.2rem; }
-      .hero-text h2 .nama { font-size: 2.6rem; display: inline-block; }
-      .hero-text h1 { font-size: 2.2rem; }
+      .hero-text h2 { font-size: 2rem; }
+      .hero-text h2 .nama { 
+        font-size: 2.2rem; 
+        display: inline; /* Agar Bayu Naufal tetap sejajar menyamping di HP */
+        margin-left: 4px;
+      }
+      .hero-text h1 { font-size: 2rem; }
       .hero-text p { font-size: 0.95rem; }
       .dot-1, .dot-2, .dot-3, .dot-4 { display: none; }
     }
 
     @media (max-width: 480px) {
-      .hero-text h2 { font-size: 1.8rem; }
-      .hero-text h2 .nama { font-size: 2.2rem; }
-      .hero-text h1 { font-size: 1.8rem; }
+      .hero-text h2 { font-size: 1.6rem; }
+      .hero-text h2 .nama { font-size: 1.9rem; }
+      .hero-text h1 { font-size: 1.6rem; }
       .hero-img { width: 100%; height: 320px; max-width: 300px; }
       .hero-img .lingkaran-besar { width: 260px; height: 260px; }
       .hero-img img { width: 240px; }
@@ -382,7 +386,6 @@
         <a href="about.html">About</a>
         <a href="experience.html">Experience</a>
       </nav>
-      <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
 
       <label for="menu-checkbox" class="menu-toggle" aria-label="Open Menu">
         <i class="fa-solid fa-bars"></i>
@@ -401,10 +404,9 @@
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="experience.html">Experience</a>
-        <a href="https://wa.me/6285710158868">Contact</a>
       </div>
 
-      <a href="https://wa.me/6285710158868" class="btn" style="padding: 14px 0; text-align: center; width: 100%;">Hubungi Kami ✨</a>
+      <a href="https://wa.me/6285710158868" class="btn" style="padding: 14px 0; text-align: center; width: 100%;">Contact</a>
     </div>
 
     <main class="hero">
