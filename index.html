@@ -44,6 +44,9 @@
       .sosmed a:hover {
         color: var(--biru) !important;
       }
+      .mobile-menu {
+        background: var(--putih) !important;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -64,42 +67,50 @@
       padding: 0 90px;
     }
 
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     header {
       position: relative;
-      z-index: 5;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-top: 40px;
       margin-bottom: 20px;
+      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-   .logo {
+    .logo {
       position: relative;
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 700;
       text-decoration: none;
       color: var(--hitam);
       z-index: 1;
-      display: inline-flex;
-      align-items: center;
-      gap: 15px;
+      transition: all 0.3s ease;
     }
-
-    .logo span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 75px;
-      height: 75px;
-      background: var(--biru);
-      color: #ffffff !important;
-      border-radius: 50%;
-      font-size: 1.8rem;
-      font-weight: 700;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    .logo:hover {
+      letter-spacing: 1px;
+      color: var(--biru);
     }
-
     .logo::before, .logo::after {
       display: none !important;
     }
@@ -110,8 +121,25 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 1.05rem;
+      position: relative;
+      transition: color 0.3s ease;
     }
-    nav a:hover { color: var(--biru); }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--biru);
+      transition: width 0.3s ease;
+    }
+    nav a:hover, nav a.active {
+      color: var(--biru);
+    }
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
 
     .btn {
       display: inline-block;
@@ -125,11 +153,79 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform .2s, background .2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn:hover { transform: translateY(-3px); background: #153c70; }
+    .btn:hover { 
+      transform: translateY(-4px) scale(1.03); 
+      background: #153c70; 
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+    }
 
-    .btn-contact { padding: 10px 40px; font-size: 1.05rem; }
+    .btn-contact { 
+      padding: 10px 40px; 
+      font-size: 1.05rem; 
+      animation: pulseBtn 3s infinite;
+    }
+    @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(28, 77, 141, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0); }
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--hitam);
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--putih);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 30px 25px;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #menu-checkbox { display: none; }
+    #menu-checkbox:checked ~ .mobile-menu { transform: translateY(0); }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hitam);
+      text-decoration: none;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active {
+      color: var(--biru);
+      padding-left: 10px;
+    }
 
     .hero {
       position: relative;
@@ -140,7 +236,12 @@
       min-height: 640px;
     }
 
-    .hero-text { max-width: 580px; padding-top: 40px; }
+    .hero-text { 
+      max-width: 580px; 
+      padding-top: 40px; 
+      animation: slideLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
+    }
 
     .hero-text h2 {
       font-size: 3rem;
@@ -154,6 +255,11 @@
       font-size: 3.6rem;
       margin-left: 6px;
       color: var(--biru);
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .hero-text h2 .nama:hover {
+      transform: rotate(-3deg) scale(1.05);
     }
 
     .hero-text h1 {
@@ -181,14 +287,20 @@
     .sosmed { display: flex; gap: 22px; margin-bottom: 36px; font-size: 1.4rem; }
     .sosmed a { 
       color: var(--hitam); 
+      background: var(--biru-muda);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .sosmed a:hover { color: var(--biru); }
-
-    .hero-btn { display: flex; gap: 48px; }
-    .hero-btn .btn {
-      width: 220px;
-      padding: 12px 0;
-      box-shadow: 0 6px 12px rgba(28, 77, 141, .2);
+    .sosmed a:hover { 
+      color: var(--putih); 
+      background: var(--biru);
+      transform: translateY(-6px) rotate(8deg) scale(1.1);
+      box-shadow: 0 8px 20px rgba(28, 77, 141, 0.3);
     }
 
     .hero-img {
@@ -197,7 +309,10 @@
       height: 600px;
       flex-shrink: 0;
       align-self: flex-end;
+      animation: slideRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+      opacity: 0;
     }
+
     .hero-img .lingkaran-besar {
       position: absolute;
       width: 520px; height: 520px;
@@ -205,6 +320,7 @@
       background: var(--biru);
       bottom: 0; left: 0;
     }
+
     .hero-img img {
       position: absolute;
       bottom: -10px;
@@ -214,75 +330,82 @@
       z-index: 2;
       object-fit: cover;
       object-position: top;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
     }
 
-    .dot { position: absolute; border-radius: 50%; z-index: 1; }
-    .dot-1 { width: 55px;  height: 55px;  background: var(--dot-light-1);  top: 90px;  right: 420px; z-index: 6; }
-    .dot-2 { width: 100px; height: 100px; background: var(--dot-light-1);  top: 170px; right: 270px; }
-    .dot-3 { width: 200px; height: 200px; background: var(--dot-light-2);  top: 250px; right: 40px;  }
-    .dot-4 { width: 140px; height: 140px; background: var(--dot-light-2);  bottom: -20px; left: -20px; }
-
-    @media (max-width: 1024px) {
-      .hero-page { padding: 0 40px; }
-      .hero { flex-direction: column-reverse; text-align: center; padding-top: 20px; min-height: auto; }
-      .hero-text { max-width: 100%; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
-      .hero-text p { margin-inline: auto; }
-      .sosmed, .hero-btn { justify-content: center; }
-      
-      .hero-img { 
-        width: 100%; 
-        max-width: 400px; 
-        height: 400px; 
-        margin: 0 auto; 
-        align-self: center;
-      }
-      .hero-img .lingkaran-besar { width: 320px; height: 320px; left: 50%; transform: translateX(-50%); bottom: 0; }
-      .hero-img img { width: 300px; left: 50%; transform: translateX(-50%); }
-    }
+    .dot { position: absolute; border-radius: 50%; z-index: 1; animation: slideUp 0.8s ease forwards; opacity: 0; }
+    .dot-1 { width: 55px;  height: 55px;  background: var(--dot-light-1);  top: 90px;  right: 420px; animation-delay: 0.4s; }
+    .dot-2 { width: 100px; height: 100px; background: var(--dot-light-1);  top: 170px; right: 270px; animation-delay: 0.5s; }
+    .dot-3 { width: 200px; height: 200px; background: var(--dot-light-2);  top: 250px; right: 40px;  animation-delay: 0.6s; }
+    .dot-4 { width: 140px; height: 140px; background: var(--dot-light-2);  bottom: -20px; left: -20px; animation-delay: 0.7s; }
 
     @media (max-width: 768px) {
-      body { border-width: 6px; } 
+      body { border-width: 6px; }
       .hero-page { padding: 0 20px; }
-      
-      header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; }
+      header { padding-top: 25px; }
+      nav { display: none; }
+      .btn-contact { display: none; }
+      .menu-toggle { display: block; }
       
       .hero-text h2 { font-size: 2.2rem; }
       .hero-text h2 .nama { font-size: 2.6rem; display: inline-block; }
       .hero-text h1 { font-size: 2.2rem; }
       .hero-text p { font-size: 0.95rem; }
-      
-      .dot-1, .dot-2, .dot-3, .dot-4 { display: none; } 
+      .dot-1, .dot-2, .dot-3, .dot-4 { display: none; }
+    }
+
     @media (max-width: 480px) {
       .hero-text h2 { font-size: 1.8rem; }
       .hero-text h2 .nama { font-size: 2.2rem; }
       .hero-text h1 { font-size: 1.8rem; }
-      nav { gap: 15px; font-size: 0.85rem; }
       .hero-img { width: 100%; height: 320px; max-width: 300px; }
       .hero-img .lingkaran-besar { width: 260px; height: 260px; }
       .hero-img img { width: 240px; }
     }
-  }
   </style>
 </head>
 
 <body>
   <div class="hero-page">
-
     <span class="dot dot-1"></span>
     <span class="dot dot-2"></span>
     <span class="dot dot-3"></span>
     <span class="dot dot-4"></span>
 
+    <input type="checkbox" id="menu-checkbox">
+
     <header>
       <a href="index.html" class="logo">Bayu Naufal</a>
+      
       <nav>
-        <a href="index.html">Home</a>
+        <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="experience.html">Experience</a>
       </nav>
       <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
+
+      <label for="menu-checkbox" class="menu-toggle" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
     </header>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="logo" style="font-size: 2rem;">Bayu Naufal</a>
+        <label for="menu-checkbox" class="menu-toggle" style="cursor: pointer;">
+          <i class="fa-solid fa-xmark" style="font-size: 2rem;"></i>
+        </label>
+      </div>
+
+      <div class="mobile-nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="experience.html">Experience</a>
+        <a href="https://wa.me/6285710158868">Contact</a>
+      </div>
+
+      <a href="https://wa.me/6285710158868" class="btn" style="padding: 14px 0; text-align: center; width: 100%;">Hubungi Kami ✨</a>
+    </div>
 
     <main class="hero">
       <section class="hero-text">
@@ -298,7 +421,6 @@
           <a href="https://www.instagram.com/bayuunaufal27" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://www.linkedin.com/in/bayu-naufal-9ba82a391" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
-
       </section>
 
       <section class="hero-img">
@@ -306,7 +428,6 @@
         <img src="src\foto1.png" alt="Bayu's Photo">
       </section>
     </main>
-
   </div>
 </body>
 </html>

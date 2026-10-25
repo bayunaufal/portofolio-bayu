@@ -36,6 +36,9 @@
       .timeline-item h3, .timeline-item .company, .card h3 {
         color: #f8fafc !important;
       }
+      .timeline-item span, .card .date, .card .view-hint {
+        color: var(--biru) !important;
+      }
       .timeline-item .date {
         color: #0f172a !important; 
         font-weight: 700;
@@ -43,6 +46,9 @@
       dialog {
         background: var(--putih) !important;
         color: var(--hitam) !important;
+      }
+      .mobile-menu {
+        background: var(--putih) !important;
       }
     }
 
@@ -63,21 +69,25 @@
       padding: 0 90px 60px 90px;
     }
 
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     header {
       position: relative;
-      z-index: 5;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-top: 40px;
       margin-bottom: 20px;
-    }
-
-    .content-container {
-      max-width: 900px;
-      margin: 20px auto 0 auto;
-      position: relative;
-      z-index: 3;
+      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .logo {
@@ -87,10 +97,10 @@
       text-decoration: none;
       color: var(--hitam);
       z-index: 1;
+      transition: all 0.3s ease;
     }
-    .logo::before, .logo::after {
-      display: none !important;
-    }
+    .logo:hover { letter-spacing: 1px; color: var(--biru); }
+    .logo::before, .logo::after { display: none !important; }
 
     nav { display: flex; align-items: center; gap: 36px; }
     nav a {
@@ -98,8 +108,21 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 1.05rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--biru);
+      transition: width 0.3s ease;
     }
     nav a:hover, nav a.active { color: var(--biru); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
 
     .btn {
       display: inline-block;
@@ -113,16 +136,86 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform .2s, background .2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn:hover { transform: translateY(-3px); background: #153c70; }
-    .btn-contact { padding: 10px 40px; font-size: 1.05rem; }
+    .btn:hover { 
+      transform: translateY(-4px) scale(1.03); 
+      background: #153c70; 
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+    }
+    .btn-contact { 
+      padding: 10px 40px; 
+      font-size: 1.05rem; 
+      animation: pulseBtn 3s infinite;
+    }
+    @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(28, 77, 141, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0); }
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--hitam);
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--putih);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 30px 25px;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #menu-checkbox { display: none; }
+    #menu-checkbox:checked ~ .mobile-menu { transform: translateY(0); }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hitam);
+      text-decoration: none;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active {
+      color: var(--biru);
+      padding-left: 10px;
+    }
 
     .content-container {
       max-width: 900px;
-      margin: 50px auto 0 auto;
+      margin: 20px auto 0 auto;
       position: relative;
       z-index: 3;
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
     }
 
     .section-title {
@@ -134,9 +227,7 @@
       align-items: center;
       gap: 15px;
     }
-    .section-title span {
-      color: var(--biru);
-    }
+    .section-title span { color: var(--biru); }
 
     .timeline-list {
       display: flex;
@@ -151,11 +242,11 @@
       border-left: 6px solid var(--biru);
       border-radius: 8px;
       padding: 24px 30px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .timeline-item:hover {
-      transform: translateX(5px);
-      box-shadow: 0 6px 15px rgba(28, 77, 141, 0.1);
+      transform: translateX(10px) translateY(-3px);
+      box-shadow: 0 10px 25px rgba(28, 77, 141, 0.2);
     }
 
     .timeline-header {
@@ -166,28 +257,9 @@
       gap: 10px;
     }
 
-    .timeline-item h3 {
-      font-size: 1.25rem;
-      color: var(--hitam);
-      font-weight: 700;
-    }
-
-    .timeline-item span {
-      font-size: 0.95rem;
-      color: var(--biru);
-      font-weight: 600;
-      display: block;
-      margin-top: 4px;
-    }
-
-    .timeline-item .company {
-      font-size: 1.05rem;
-      color: var(--hitam);
-      font-weight: 700;
-      display: block;
-      margin-top: 2px;
-    }
-
+    .timeline-item h3 { font-size: 1.25rem; color: var(--hitam); font-weight: 700; }
+    .timeline-item span { font-size: 0.95rem; color: var(--biru); font-weight: 600; display: block; margin-top: 4px; }
+    .timeline-item .company { font-size: 1.05rem; color: var(--hitam); font-weight: 700; display: block; margin-top: 2px; }
     .timeline-item .date {
       font-size: 0.9rem;
       background: var(--biru);
@@ -211,30 +283,22 @@
       border-radius: 12px;
       padding: 24px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
     }
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(28, 77, 141, 0.15);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(28, 77, 141, 0.25);
     }
     .card i.fa-certificate-icon {
       font-size: 1.8rem;
       color: var(--biru);
       margin-bottom: 12px;
+      transition: transform 0.3s ease;
     }
-    .card h3 {
-      font-size: 1.15rem;
-      color: var(--hitam);
-      margin-bottom: 6px;
-    }
-    .card .date {
-      font-size: 0.85rem;
-      color: var(--biru);
-      font-weight: 700;
-      margin-bottom: 10px;
-      display: block;
-    }
+    .card:hover i.fa-certificate-icon { transform: scale(1.2) rotate(8deg); }
+    .card h3 { font-size: 1.15rem; color: var(--hitam); margin-bottom: 6px; }
+    .card .date { font-size: 0.85rem; color: var(--biru); font-weight: 700; margin-bottom: 10px; display: block; }
     .card .view-hint {
       font-size: 0.85rem;
       color: var(--biru);
@@ -256,12 +320,8 @@
       border: 4px solid var(--biru);
       box-shadow: 0 15px 30px rgba(0,0,0,0.5);
     }
-    dialog::backdrop {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .modal-content {
-      position: relative;
-    }
+    dialog::backdrop { background-color: rgba(0, 0, 0, 0.8); }
+    .modal-content { position: relative; }
     .modal-content img {
       width: 100%;
       height: auto;
@@ -281,9 +341,7 @@
       background: none;
       border: none;
     }
-    .close-btn:hover {
-      color: var(--biru);
-    }
+    .close-btn:hover { color: var(--biru); }
 
     .dot { position: absolute; border-radius: 50%; z-index: 1; }
     .dot-1 { width: 60px; height: 60px; background: var(--dot-light-1); top: 80px; right: 50px; }
@@ -297,22 +355,19 @@
     @media (max-width: 768px) {
       body { border-width: 6px; }
       .exp-page { padding: 0 20px 30px 20px; }
-      
-      header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; }
+      header { padding-top: 25px; }
+      nav { display: none; }
+      .btn-contact { display: none; }
+      .menu-toggle { display: block; }
       
       .section-title { font-size: 1.6rem; }
       .timeline-header { flex-direction: column; align-items: flex-start; }
       .timeline-item { padding: 18px 20px; }
-      .timeline-item h3 { font-size: 1.1rem; }
-      .timeline-item .company { font-size: 0.95rem; }
-      
       .dot-1, .dot-2 { display: none; }
     }
 
     @media (max-width: 480px) {
       .section-title { font-size: 1.4rem; gap: 10px; }
-      nav { gap: 12px; font-size: 0.85rem; }
       .grid-container { grid-template-columns: 1fr; }
     }
   </style>
@@ -320,25 +375,47 @@
 
 <body>
   <div class="exp-page">
-
     <span class="dot dot-1"></span>
     <span class="dot dot-2"></span>
 
+    <input type="checkbox" id="menu-checkbox">
+
     <header>
       <a href="index.html" class="logo">Bayu Naufal</a>
+      
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="experience.html" class="active">Experience</a>
       </nav>
       <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
+
+      <label for="menu-checkbox" class="menu-toggle" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
     </header>
 
-    <main class="content-container">
+    <div class="mobile-menu">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="logo" style="font-size: 2rem;">Bayu Naufal</a>
+        <label for="menu-checkbox" class="menu-toggle" style="cursor: pointer;">
+          <i class="fa-solid fa-xmark" style="font-size: 2rem;"></i>
+        </label>
+      </div>
 
+      <div class="mobile-nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="https://wa.me/6285710158868">Contact</a>
+      </div>
+
+      <a href="https://wa.me/6285710158868" class="btn" style="padding: 14px 0; text-align: center; width: 100%;">Hubungi Kami ✨</a>
+    </div>
+
+    <main class="content-container">
       <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Work <span>Experience</span></h2>
       <div class="timeline-list">
-        
         <div class="timeline-item">
           <div class="timeline-header">
             <div>
@@ -371,12 +448,10 @@
             <span class="date">September 2022 - December 2022</span>
           </div>
         </div>
-
       </div>
 
       <h2 class="section-title"><i class="fa-solid fa-award"></i> Certificates</h2>
       <div class="grid-container">
-        
         <div class="card" onclick="document.getElementById('certModal1').showModal()">
           <i class="fa-solid fa-certificate fa-certificate-icon"></i>
           <h3>Industrial Work Practice Certificate</h3>
@@ -397,11 +472,8 @@
           <span class="date">Issued: 2025</span>
           <div class="view-hint"><i class="fa-solid fa-eye"></i> Click to view certificate</div>
         </div>
-
       </div>
-
     </main>
-
   </div>
 
   <dialog id="certModal1">
@@ -427,6 +499,5 @@
       <img src="src/sertif3.jpeg" alt="Junior Administration ICT Training Certificate">
     </div>
   </dialog>
-
 </body>
 </html>

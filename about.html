@@ -36,6 +36,9 @@
       .about-text p {
         color: #94a3b8 !important;
       }
+      .mobile-menu {
+        background: var(--putih) !important;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -55,25 +58,30 @@
       padding: 0 90px 60px 90px;
     }
 
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
     header {
       position: relative;
-      z-index: 5;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-top: 40px;
       margin-bottom: 20px;
-    }
-
-    .about-container {
-      max-width: 1100px;
-      margin: 20px auto 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 3;
+      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .logo {
@@ -83,10 +91,10 @@
       text-decoration: none;
       color: var(--hitam);
       z-index: 1;
+      transition: all 0.3s ease;
     }
-    .logo::before, .logo::after {
-      display: none !important;
-    }
+    .logo:hover { letter-spacing: 1px; color: var(--biru); }
+    .logo::before, .logo::after { display: none !important; }
 
     nav { display: flex; align-items: center; gap: 36px; }
     nav a {
@@ -94,8 +102,21 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 1.05rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--biru);
+      transition: width 0.3s ease;
     }
     nav a:hover, nav a.active { color: var(--biru); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
 
     .btn {
       display: inline-block;
@@ -109,14 +130,82 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform .2s, background .2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn:hover { transform: translateY(-3px); background: #153c70; }
-    .btn-contact { padding: 10px 40px; font-size: 1.05rem; }
+    .btn:hover { 
+      transform: translateY(-4px) scale(1.03); 
+      background: #153c70; 
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+    }
+    .btn-contact { 
+      padding: 10px 40px; 
+      font-size: 1.05rem; 
+      animation: pulseBtn 3s infinite;
+    }
+    @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(28, 77, 141, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(28, 77, 141, 0); }
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--hitam);
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--putih);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 30px 25px;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #menu-checkbox { display: none; }
+    #menu-checkbox:checked ~ .mobile-menu { transform: translateY(0); }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .mobile-nav-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hitam);
+      text-decoration: none;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active {
+      color: var(--biru);
+      padding-left: 10px;
+    }
 
     .about-container {
       max-width: 1100px;
-      margin: 60px auto 0 auto;
+      margin: 20px auto 0 auto;
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       gap: 60px;
@@ -129,6 +218,8 @@
       position: relative;
       width: 100%;
       height: 480px;
+      animation: slideLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
     }
     .about-img-box .lingkaran-besar {
       position: absolute;
@@ -146,6 +237,12 @@
       z-index: 2;
       object-fit: cover;
       object-position: top;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+    }
+
+    .about-text {
+      animation: slideRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+      opacity: 0;
     }
 
     .about-text h1 {
@@ -183,6 +280,13 @@
       font-weight: 700;
       font-size: 0.95rem;
       border: 1px solid rgba(28, 77, 141, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .skill-tag:hover {
+      transform: translateY(-4px) scale(1.05);
+      background: var(--biru);
+      color: var(--putih);
+      box-shadow: 0 6px 15px rgba(28, 77, 141, 0.3);
     }
 
     .dot { position: absolute; border-radius: 50%; z-index: 1; }
@@ -201,21 +305,20 @@
     @media (max-width: 768px) {
       body { border-width: 6px; }
       .about-page { padding: 0 20px 30px 20px; }
-      
-      header { padding-top: 25px; flex-direction: column; gap: 15px; }
-      nav { display: flex; gap: 20px; font-size: 0.9rem; }
+      header { padding-top: 25px; }
+      nav { display: none; }
+      .btn-contact { display: none; }
+      .menu-toggle { display: block; }
       
       .about-text h1 { font-size: 2.3rem; }
       .about-text h1 span { font-size: 2.6rem; display: inline-block; }
       .about-text p { font-size: 0.95rem; }
-      
       .dot-1, .dot-2 { display: none; }
     }
 
     @media (max-width: 480px) {
       .about-text h1 { font-size: 1.9rem; }
       .about-text h1 span { font-size: 2.2rem; }
-      nav { gap: 12px; font-size: 0.85rem; }
       .about-img-box { height: 320px; max-width: 300px; }
       .about-img-box .lingkaran-besar { width: 260px; height: 260px; }
       .about-img-box img { width: 230px; }
@@ -225,19 +328,43 @@
 
 <body>
   <div class="about-page">
-
     <span class="dot dot-1"></span>
     <span class="dot dot-2"></span>
 
+    <input type="checkbox" id="menu-checkbox">
+
     <header>
       <a href="index.html" class="logo">Bayu Naufal</a>
+      
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="experience.html">Experience</a>
       </nav>
       <a href="https://wa.me/6285710158868" class="btn btn-contact">Contact</a>
+
+      <label for="menu-checkbox" class="menu-toggle" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
     </header>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="logo" style="font-size: 2rem;">Bayu Naufal</a>
+        <label for="menu-checkbox" class="menu-toggle" style="cursor: pointer;">
+          <i class="fa-solid fa-xmark" style="font-size: 2rem;"></i>
+        </label>
+      </div>
+
+      <div class="mobile-nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="experience.html">Experience</a>
+        <a href="https://wa.me/6285710158868">Contact</a>
+      </div>
+
+      <a href="https://wa.me/6285710158868" class="btn" style="padding: 14px 0; text-align: center; width: 100%;">Hubungi Kami ✨</a>
+    </div>
 
     <main class="about-container">
       <section class="about-img-box">
@@ -264,7 +391,6 @@
         </div>
       </section>
     </main>
-
   </div>
 </body>
 </html>
